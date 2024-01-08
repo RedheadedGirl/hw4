@@ -2,7 +2,8 @@ import java.util.Scanner;
 
 public class Task1 {
     public static void main(String[] args) {
-        TerminalImpl terminal = new TerminalImpl(new TerminalServer(), new PinValidator());
+        MessageHandler messageHandler = new MessageHandler(new MessagePrintableImpl());
+        TerminalImpl terminal = new TerminalImpl(new TerminalServer(), new PinValidator(messageHandler), messageHandler);
         terminal.getPinValidator().validate();
 
         Scanner scanner = new Scanner(System.in);

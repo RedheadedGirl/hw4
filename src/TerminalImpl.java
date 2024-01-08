@@ -4,30 +4,32 @@ public class TerminalImpl implements Terminal {
 
     private final TerminalServer server;
     private final PinValidator pinValidator;
+    private MessageHandler messageHandler;
 
-    public TerminalImpl(TerminalServer server, PinValidator pinValidator) {
+    public TerminalImpl(TerminalServer server, PinValidator pinValidator, MessageHandler messageHandler) {
         this.server = server;
         this.pinValidator = pinValidator;
+        this.messageHandler = messageHandler;
     }
 
     @Override
     public void checkBalance() {
-        MessageHandler.showBalance(server.getBalance());
+        messageHandler.showBalance(server.getBalance());
     }
 
     @Override
     public void addMoney() {
-        MessageHandler.wantToAdd();
+        messageHandler.wantToAdd();
         server.addMoney(insertSum());
     }
 
     @Override
     public void takeMoney() {
-        MessageHandler.wantToTake();
+        messageHandler.wantToTake();
         try {
             server.subtractMoney(insertSum());
         } catch (NotEnoughMoneyException ex) {
-            MessageHandler.cantTake();
+            messageHandler.cantTake();
         }
     }
 
@@ -38,7 +40,7 @@ public class TerminalImpl implements Terminal {
     private int insertSum() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            MessageHandler.insertSum();
+            messageHandler.insertSum();
             String line = scanner.nextLine();
             try {
                 int sum = Integer.parseInt(line);
@@ -50,7 +52,7 @@ public class TerminalImpl implements Terminal {
                 }
                 return sum;
             } catch (NumberFormatException numberFormatException) {
-                MessageHandler.wrongSum(numberFormatException.getMessage());
+                messageHandler.wrongSum(numberFormatException.getMessage());
             }
         }
     }

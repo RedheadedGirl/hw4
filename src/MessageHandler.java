@@ -1,50 +1,56 @@
 public class MessageHandler {
 
-    public static void showBalance(int amount) {
-        System.out.println(MessageCreator.balance(amount));
+    private MessagePrintable messagePrintable;
+
+    public MessageHandler(MessagePrintable messagePrintable) {
+        this.messagePrintable = messagePrintable;
     }
 
-    public static void wantToAdd() {
-        System.out.println(MessageCreator.wantToAdd());
+    public void showBalance(int amount) {
+        messagePrintable.printMessage("Баланс составляет " + amount + " рублей");
     }
 
-    public static void wantToTake() {
-        System.out.println(MessageCreator.wantToTake());
+    public void wantToAdd() {
+        messagePrintable.printMessage("Вы собираетесь пополнить.");
     }
 
-    public static void cantTake() {
-        System.out.println(MessageCreator.cantTake());
+    public void wantToTake() {
+        messagePrintable.printMessage("Вы собираетесь снять.");
     }
 
-    public static void insertSum() {
-        System.out.println(MessageCreator.insertSum());
+    public void cantTake() {
+        messagePrintable.printMessage("Не удалось снять деньги");
     }
 
-    public static void wrongSum(String message) {
-        System.out.println(MessageCreator.wrongSum(message));
+    public void insertSum() {
+        messagePrintable.printMessage("Внесите сумму (введите сумму, кратную 100):");
     }
 
-    public static void waitABitMore(String timeToWait) {
-        System.out.println(MessageCreator.waitABitMore(timeToWait));
+    public void wrongSum(String message) {
+        messagePrintable.printMessage("Неверный формат суммы! " + message + " Введите заново");
     }
 
-    public static void insertCorrectPin() {
-        System.out.println(MessageCreator.insertCorrectPin());
+    public void waitABitMore(String timeToWait) {
+        messagePrintable.printMessage(timeToWait + " Попробуйте повторить ввод позже. Для этого нажмите любую клавишу");
     }
 
-    public static void oneSymbol() {
-        System.out.println(MessageCreator.oneSymbol());
+    public void insertCorrectPin() {
+        messagePrintable.printMessage("Введите верный пин");
     }
 
-    public static void digit() {
-        System.out.println(MessageCreator.digit());
+    public void oneSymbol() {
+        messagePrintable.printMessage("Введите ОДИН символ");
     }
 
-    public static void successfulAuth() {
-        System.out.println(MessageCreator.successfulAuth());
+    public void digit() {
+        messagePrintable.printMessage("Нужна именно цифра");
     }
 
-    public static void printMessage(String message) {
+    public void successfulAuth() {
+        messagePrintable.printMessage("Вы авторизованы");
+    }
+
+    public void printMessage(String message) {
         System.out.println(message);
     }
 }
